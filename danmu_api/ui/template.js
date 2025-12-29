@@ -49,11 +49,11 @@ export const HTML_TEMPLATE = /* html */ `
                 </div>
             </div>
             <div class="nav-buttons">
-                <button class="nav-btn active" onclick="switchSection('preview')">配置预览</button>
-                <button class="nav-btn" onclick="switchSection('logs')">日志查看</button>
-                <button class="nav-btn" onclick="switchSection('api')">接口调试</button>
-                <button class="nav-btn" onclick="switchSection('push')">推送弹幕</button>
-                <button class="nav-btn" onclick="switchSection('env')" id="env-nav-btn">系统配置</button>
+                <button class="nav-btn active" onclick="switchSection('preview', event)">配置预览</button>
+                <button class="nav-btn" onclick="switchSection('logs', event)">日志查看</button>
+                <button class="nav-btn" onclick="switchSection('api', event)">接口调试</button>
+                <button class="nav-btn" onclick="switchSection('push', event)">推送弹幕</button>
+                <button class="nav-btn" onclick="switchSection('env', event)" id="env-nav-btn">系统配置</button>
             </div>
         </div>
 
@@ -85,12 +85,13 @@ export const HTML_TEMPLATE = /* html */ `
                     <div class="form-group">
                         <label>选择接口</label>
                         <select id="api-select" onchange="loadApiParams()">
-                            <option value="">请选择接口</option>
+                            <option value="">-- 请选择接口 --</option>
                             <option value="searchAnime">搜索动漫 - /api/v2/search/anime</option>
                             <option value="searchEpisodes">搜索剧集 - /api/v2/search/episodes</option>
                             <option value="matchAnime">匹配动漫 - /api/v2/match</option>
                             <option value="getBangumi">获取番剧详情 - /api/v2/bangumi/:animeId</option>
                             <option value="getComment">获取弹幕 - /api/v2/comment/:commentId</option>
+                            <option value="getSegmentComment">获取分片弹幕 - /api/v2/segmentcomment</option>
                         </select>
                     </div>
                 </div>
@@ -199,12 +200,12 @@ export const HTML_TEMPLATE = /* html */ `
                 </div>
 
                 <div class="env-categories">
-                    <button class="category-btn active" onclick="switchCategory('api')">🔗 API配置</button>
-                    <button class="category-btn" onclick="switchCategory('source')">📜 源配置</button>
-                    <button class="category-btn" onclick="switchCategory('match')">🔍 匹配配置</button>
-                    <button class="category-btn" onclick="switchCategory('danmu')">🔣 弹幕配置</button>
-                    <button class="category-btn" onclick="switchCategory('cache')">💾 缓存配置</button>
-                    <button class="category-btn" onclick="switchCategory('system')">⚙️ 系统配置</button>
+                    <button class="category-btn active" onclick="switchCategory('api', event)">🔗 API配置</button>
+                    <button class="category-btn" onclick="switchCategory('source', event)">📜 源配置</button>
+                    <button class="category-btn" onclick="switchCategory('match', event)">🔍 匹配配置</button>
+                    <button class="category-btn" onclick="switchCategory('danmu', event)">🔣 弹幕配置</button>
+                    <button class="category-btn" onclick="switchCategory('cache', event)">💾 缓存配置</button>
+                    <button class="category-btn" onclick="switchCategory('system', event)">⚙️ 系统配置</button>
                 </div>
 
                 <div class="env-list" id="env-list"></div>

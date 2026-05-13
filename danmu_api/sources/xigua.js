@@ -82,7 +82,7 @@ class XiguaSource extends BaseSource {
       }
 
       // 正常情况下输出 JSON 字符串
-      log("info", `xiguaSearchresp: ${JSON.stringify(animes)}`);
+      log("info", `[Xigua] 搜索找到 ${animes.length} 个有效结果`);
       return animes;
     } catch (error) {
       // 捕获请求中的错误
@@ -111,7 +111,7 @@ class XiguaSource extends BaseSource {
       // 判断 resp 和 resp.data 是否存在
       if (!resp || !resp.data) {
         log("info", "getXiguaDetail: 请求失败或无数据返回");
-        return [];
+        return 0;
       }
 
       const match = resp.data.match(/"duration"\s*:\s*([\d.]+)/);
@@ -123,7 +123,7 @@ class XiguaSource extends BaseSource {
         name: error.name,
         stack: error.stack,
       });
-      return [];
+      return 0;
     }
   }
 
@@ -181,7 +181,7 @@ class XiguaSource extends BaseSource {
     }
   }
 
-  async handleAnimes(sourceAnimes, queryTitle, curAnimes) {
+  async handleAnimes(sourceAnimes, queryTitle, curAnimes, detailStore = null) {
     const tmpAnimes = [];
 
     // 添加错误处理，确保sourceAnimes是数组
@@ -224,7 +224,7 @@ class XiguaSource extends BaseSource {
 
             tmpAnimes.push(transformedAnime);
 
-            addAnime({...transformedAnime, links: links});
+            addAnime({...transformedAnime, links: links}, detailStore);
 
             if (globals.animes.length > globals.MAX_ANIMES) removeEarliestAnime();
           }

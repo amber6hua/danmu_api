@@ -206,7 +206,7 @@ export default class RenrenSource extends BaseSource {
         provider: "renren",
         mediaId: String(item.id),
         title: String(item.title || "").replace(/<[^>]+>/g, "").replace(/:/g, "："),
-        type: "tv_series",
+        type: item.classify || "Renren",
         season: null,
         year: item.year,
         imageUrl: item.cover,
@@ -373,7 +373,7 @@ export default class RenrenSource extends BaseSource {
         provider: "renren",
         mediaId: String(item.id),
         title: String(item.title || "").replace(/<[^>]+>/g, "").replace(/:/g, "："),
-        type: "tv_series",
+        type: item.classify || "Renren",
         season: null,
         year: item.year,
         imageUrl: item.cover,
@@ -487,7 +487,7 @@ export default class RenrenSource extends BaseSource {
     }));
   }
 
-  async handleAnimes(sourceAnimes, queryTitle, curAnimes) {
+  async handleAnimes(sourceAnimes, queryTitle, curAnimes, detailStore = null) {
     const tmpAnimes = [];
 
     if (!sourceAnimes || !Array.isArray(sourceAnimes)) {
@@ -533,7 +533,7 @@ export default class RenrenSource extends BaseSource {
               };
 
               tmpAnimes.push(transformedAnime);
-              addAnime({ ...transformedAnime, links: links });
+              addAnime({ ...transformedAnime, links: links }, detailStore);
 
               if (globals.animes.length > globals.MAX_ANIMES) {
                 removeEarliestAnime();
